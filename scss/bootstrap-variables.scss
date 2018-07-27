@@ -1,0 +1,27 @@
+// this file is only for the purpose of overriding Bootstrap sass
+
+// Glyphicons font
+$bootstrap-sass-asset-helper: false;
+$icon-font-path: 'bootstrap-sass/assets/fonts/bootstrap/';
+$icon-font-name: 'glyphicons-halflings-regular';
+$icon-font-svg-id: "glyphicons_halflingsregular";
+
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/glyphicons";
+
+// General settings and override for BS4
+$font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1200px
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 1000px,
+  xl: 1366px
+);
