@@ -89,6 +89,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.22.1",
     "node-sass": "^4.7.2",
+    "osc": "^2.2.3",
     "paginator": "^1.0.0",
     "popper.js": "^1.14.3",
     "prop-types": "^15.6.0",
