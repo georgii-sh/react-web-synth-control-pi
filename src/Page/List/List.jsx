@@ -1,32 +1,49 @@
 // @flow
 
 import React from 'react'
-import { connect } from 'react-redux'
+import { RotateSpinLoader } from 'react-css-loaders'
 
 import { bs4 } from '../../shared'
 import styles from './List.scss'
 
+type ListItem = {
+  id: string,
+  title: string,
+  selected?: boolean
+}
+
 type Props = {
-  title: string
+  items: Array<ListItem>,
+  isLoading: boolean,
+  onItemClick: Function
 }
 
 class List extends React.Component<Props> {
   render() {
     return (
-      <div className={[bs4.container, styles.app__container].join(' ')}>
-        hello {this.props.title}
+      <div className={styles.list}>
+        {this.props.isLoading && <RotateSpinLoader color="#007bff" size={5} className={styles.loading} />}
+        {this.props.items && (
+          <div className={[bs4['list-group'], styles.list__items].join(' ')}>
+            {this.props.items.map(item => (
+              <button 
+                type="button" 
+                className={[
+                  bs4['list-group-item'], 
+                  bs4['list-group-item-action'], 
+                  item.selected ? bs4.active : '',
+                  styles.list__item
+                ].join(' ')}
+                onClick={() => this.props.onItemClick(item.id)}
+              >
+                {item.title}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({
-})
-
-const mapDispatchToProps = dispatch => ({
-
-})
-
-export const UnwrappedList = List
-
-export default connect(mapStateToProps, mapDispatchToProps)(List)
+export default List

@@ -2,33 +2,27 @@
 
 // @flow
 
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { Fragment } from 'react'
+import { Route } from 'react-router-dom'
 
 import { bs4 } from '../shared'
 import styles from './Page.scss'
 
+import Banks from './Banks/Banks'
+
 type Props = {
-  title: string
 }
 
 class Page extends React.Component<Props> {
   render() {
     return (
       <div className={[bs4.container, styles.app__container].join(' ')}>
-        hello {this.props.title}
+        <Fragment>
+          <Route path="/banks" component={() => <Banks />} />
+        </Fragment>
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({
-})
-
-const mapDispatchToProps = dispatch => ({
-
-})
-
-export const UnwrappedPage = Page
-
-export default connect(mapStateToProps, mapDispatchToProps)(Page)
+export default Page

@@ -25,7 +25,7 @@ if (config.cors) {
 
 app.use('/assets', express.static(path.join(__dirname, '/public/assets'), { maxAge: config.cacheTime }))
 
-app.get('/banks', async (req, res) => {
+app.get('/api/banks', async (req, res) => {
   try {
     const items = await getBanks()
     res.json({ items })
@@ -34,7 +34,7 @@ app.get('/banks', async (req, res) => {
   }
 })
 
-app.get('/instruments/:bank', async (req, res) => {
+app.get('/api/instruments/:bank', async (req, res) => {
   const { bank } = req.params
   let instruments
   try {
@@ -61,7 +61,7 @@ app.get('/instruments/:bank', async (req, res) => {
   res.json({ items })
 })
 
-app.post('/instruments/:bank/:instrument', async (req, res) => {
+app.post('/api/instruments/:bank/:instrument', async (req, res) => {
   const { bank, instrument } = req.params
   try {
     await changeInstrument(udpPort, bank, instrument)

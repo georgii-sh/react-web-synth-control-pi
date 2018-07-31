@@ -18,7 +18,3 @@ const renderApp = () => {
   )
 }
 renderApp()
-
-// if (module.hot) {
-//   module.hot.accept()
-// }
