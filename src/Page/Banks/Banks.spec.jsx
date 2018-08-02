@@ -6,7 +6,9 @@ import { shallow } from 'enzyme'
 import { UnwrappedBanks as Banks } from './Banks'
 
 const mockedData = {
-  loadBanks: jest.fn()
+  loadBanks: jest.fn(),
+  isLoading: false,
+  items: []
 }
 
 describe('Banks Component', () => {
