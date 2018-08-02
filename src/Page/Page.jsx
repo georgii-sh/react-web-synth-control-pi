@@ -8,9 +8,11 @@ import styles from './Page.scss'
 
 import Header from './Header/Header'
 import Banks from './Banks/Banks'
+import Instruments from './Instruments/Instruments'
 
 type Props = {
-  history: any
+  match: Match,
+  history: RouterHistory,
 }
 
 class Page extends React.Component<Props> {
@@ -20,7 +22,8 @@ class Page extends React.Component<Props> {
         <Header title="Zynaddsubfx" />
         <div className={[bs4.container, styles.app__container].join(' ')}>
           <Fragment>
-            <Route path="/banks" component={() => <Banks history={this.props.history}/>} />
+            <Route path="/instruments" exact component={props => <Banks {...props}/>} />
+            <Route path="/instruments/:bank" exact component={props => <Instruments {...props}/>} />
           </Fragment>
         </div>
       </div>

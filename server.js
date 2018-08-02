@@ -1,7 +1,6 @@
 const express = require('express')
 const cors = require('cors')
 const path = require('path')
-const _ = require('lodash')
 const osc = require('osc')
 const fs = require('fs')
 
@@ -45,29 +44,12 @@ app.get('/api/banks', async (req, res) => {
 
 app.get('/api/instruments/:bank', async (req, res) => {
   const { bank } = req.params
-  let instruments
   try {
-    instruments = await getInstruments(bank)
+    const items = await getInstruments(bank)
+    res.json({ items })
   } catch (error) {
     res.sendStatus(400).json({ message: 'Error', error })
-    return
   }
-
-  const items = _.map(instruments, instrument => {
-    let name = instrument
-    const matches = /\d{1,4}-([^.]+).xiz/.exec(instrument)
-    if (matches && matches.length > 1) {
-      [name] = matches
-    }
-
-    return {
-      bank,
-      name,
-      path: instrument
-    }
-  })
-
-  res.json({ items })
 })
 
 app.post('/api/instruments/:bank/:instrument', async (req, res) => {
