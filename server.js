@@ -3,9 +3,10 @@ const cors = require('cors')
 const path = require('path')
 const _ = require('lodash')
 const osc = require('osc')
+const fs = require('fs')
 
 const config = require('./config/server/config')
-const { getBanks, getInstruments, changeInstrument } = require('./server') 
+const { getBanks, getInstruments, changeInstrument } = require('./backend') 
 
 const udpPort = new osc.UDPPort({
   localAddress: '127.0.0.1',
@@ -24,6 +25,14 @@ if (config.cors) {
 }
 
 app.use('/assets', express.static(path.join(__dirname, '/public/assets'), { maxAge: config.cacheTime }))
+
+app.get('^/bundle_[\\w\\d]+.js$', (req, res, next) => {
+  const possibleSplittedBundlePath = path.join(__dirname, `/public/${req.path}`)
+  if (fs.existsSync(possibleSplittedBundlePath)) {
+    return res.sendFile(possibleSplittedBundlePath)
+  }
+  return next()
+})
 
 app.get('/api/banks', async (req, res) => {
   try {

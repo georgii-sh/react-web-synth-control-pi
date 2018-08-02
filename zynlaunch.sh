@@ -7,7 +7,7 @@ if pgrep -x "zynaddsubfx"
  echo Zynaddsubfx is already singing
  exit 0
  else
- zynaddsubfx -U -A=0 -o 512 -r 96000 -b 512 -I alsa -O alsa -P 7777 -L "/usr/local/share/zynaddsubfx/banks/Choir and Voice/0034-Slow Morph_Choir.xiz" &
+ zynaddsubfx -U -A=0 -o 512 -r 96000 -b 512 -I alsa -O alsa -P 7777 &
  sleep 4
 
    if pgrep zynaddsubfx

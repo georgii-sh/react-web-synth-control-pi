@@ -7,6 +7,7 @@ import List from '../List/List'
 import { loadBanks } from '../../redux'
 
 type Props = {
+  history: any,
   items: Array<any>,
   isLoading: boolean,
   loadBanks: Function
@@ -14,16 +15,26 @@ type Props = {
 
 class Banks extends React.Component<Props> {
 
+  constructor(props) {
+    super(props)
+    this.onItemClick = this.onItemClick.bind(this)
+  }
+
   componentWillMount() {
     this.props.loadBanks()
   }
 
   onItemClick(id: string) {
-    console.log('ITEM CLICKED', id)
+    this.props.history.push(`/instruments/${id}`)
   }
 
   render() {
-    return <List isLoading={this.props.isLoading} items={this.props.items} onItemClick={this.onItemClick} />
+    return (
+      <div>
+        <h1>Banks</h1>
+        <List isLoading={this.props.isLoading} items={this.props.items} onItemClick={this.onItemClick} />
+      </div>
+    )
   }
 }
 
