@@ -8,14 +8,14 @@ import styles from './List.scss'
 
 type ListItem = {
   id: string,
-  title: string,
-  selected?: boolean
+  title: string
 }
 
 type Props = {
   items: Array<ListItem>,
   isLoading: boolean,
-  onItemClick: Function
+  onItemClick: Function,
+  selectedId?: string
 }
 
 class List extends React.Component<Props> {
@@ -31,7 +31,7 @@ class List extends React.Component<Props> {
                 className={[
                   bs4['list-group-item'], 
                   bs4['list-group-item-action'], 
-                  item.selected ? bs4.active : '',
+                  this.props.selectedId === item.id ? bs4.active : '',
                   styles.list__item
                 ].join(' ')}
                 onClick={() => this.props.onItemClick(item.id)}

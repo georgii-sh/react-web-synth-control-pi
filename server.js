@@ -18,6 +18,7 @@ const udpPort = new osc.UDPPort({
 udpPort.open()
 
 const app = express()
+app.use(express.json());
 
 if (config.cors) {
   app.use(cors())
@@ -52,11 +53,12 @@ app.get('/api/instruments/:bank', async (req, res) => {
   }
 })
 
-app.post('/api/instruments/:bank/:instrument', async (req, res) => {
-  const { bank, instrument } = req.params
+app.post('/api/instruments/:bank', async (req, res) => {
+  const { bank } = req.params
+  const { instrument } = req.body
   try {
-    await changeInstrument(udpPort, bank, instrument)
-    res.json({ message: `Selected instrument: ${instrument}` })
+    changeInstrument(udpPort, bank, instrument)
+    res.json({ message: `Selected instrument: ${instrument}`, instrument })
   } catch (error) {
     res.sendStatus(400).json({ message: 'Error', error })
   }

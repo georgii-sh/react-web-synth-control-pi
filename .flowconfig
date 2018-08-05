@@ -1,5 +1,6 @@
 [ignore]
 <PROJECT_ROOT>/templates/*
+<PROJECT_ROOT>/node_modules/*
 
 [include]
 
@@ -8,5 +9,6 @@
 [lints]
 
 [options]
+module.file_ext=.scss
 module.name_mapper.extension='scss' -> 'empty/object'
 [strict]

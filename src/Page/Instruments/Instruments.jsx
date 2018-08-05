@@ -4,14 +4,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import List from '../List/List'
-import { loadInstruments } from '../../redux'
+import { loadInstruments, selectInstrument } from '../../redux'
 
 type Props = {
   match: Match,
-  history: RouterHistory,
   items: Array<any>,
+  selectedInstrument: string,
   isLoading: boolean,
-  loadInstruments: Function
+  loadInstruments: Function,
+  selectInstrument: Function
 }
 
 class Instruments extends React.Component<Props> {
@@ -26,8 +27,9 @@ class Instruments extends React.Component<Props> {
     this.props.loadInstruments(bank)
   }
 
-  onItemClick(id: string) {
-    
+  onItemClick(instrument: string) {
+    const { bank } = this.props.match.params
+    this.props.selectInstrument(bank, instrument)
   }
 
   render() {
@@ -35,7 +37,12 @@ class Instruments extends React.Component<Props> {
     return (
       <div>
         <h1>{bank}</h1>
-        <List isLoading={this.props.isLoading} items={this.props.items} onItemClick={this.onItemClick} />
+        <List 
+          isLoading={this.props.isLoading} 
+          items={this.props.items} 
+          onItemClick={this.onItemClick} 
+          selectedId={this.props.selectedInstrument} 
+        />
       </div>
     )
   }
@@ -43,12 +50,16 @@ class Instruments extends React.Component<Props> {
 
 const mapStateToProps = state => ({
   items: state.instrumentsReducer.items,
-  isLoading: state.instrumentsReducer.isLoading
+  isLoading: state.instrumentsReducer.isLoading,
+  selectedInstrument: state.instrumentsReducer.instrument
 })
 
 const mapDispatchToProps = dispatch => ({
   loadInstruments(bank: string) {
     dispatch(loadInstruments(bank))
+  },
+  selectInstrument(bank: string, instrument: string) {
+    dispatch(selectInstrument(bank, instrument))
   }
 })
 

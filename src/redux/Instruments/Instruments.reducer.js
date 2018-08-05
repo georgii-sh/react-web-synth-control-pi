@@ -2,7 +2,8 @@
 
 type State = {
   items: Array<any>,
-  isLoading: boolean
+  isLoading: boolean,
+  instrument: string
 }
 
 type Action = {
@@ -12,7 +13,8 @@ type Action = {
 
 const DEFAULT_STATE = {
   items: [],
-  isLoading: false
+  isLoading: false,
+  instrument: ''
 }
 
 export default (state: State = DEFAULT_STATE, action: Action) => {
@@ -21,6 +23,8 @@ export default (state: State = DEFAULT_STATE, action: Action) => {
       return Object.assign({}, state, { isLoading: true })
     case 'INSTRUMENTS_ITEMS_LOADED':
       return Object.assign({}, state, { items: action.payload.items, isLoading: false })
+    case 'SELECT_INSTRUMENT_FINISH':
+      return Object.assign({}, state, { instrument: action.payload.instrument })
     default:
       return state
   }

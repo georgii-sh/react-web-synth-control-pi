@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 
-export default function loadInstruments(bank: string) {
+export function loadInstruments(bank: string) {
   const apiUrl = process.env.API_URL || ''
   return (dispatch: Function) => {
     dispatch({ type: 'INSTRUMENTS_LOADING' })
@@ -21,6 +21,25 @@ export default function loadInstruments(bank: string) {
         }
       }))
   }
-  
-  
+}
+
+export function selectInstrument(bank: string, instrument: string) {
+  const apiUrl = process.env.API_URL || ''
+  return (dispatch: Function) => {
+    dispatch({ type: 'SELECT_INSTRUMENT_LOADING' })
+    axios
+      .post(`${apiUrl}instruments/${bank}`, { instrument })
+      .then(response => dispatch({
+        type: 'SELECT_INSTRUMENT_FINISH',
+        payload: {
+          instrument: response.data.instrument
+        }
+      }))
+      .catch(err => dispatch({
+        type: 'SELECT_INSTRUMENT_SET_ERROR',
+        payload: {
+          error: err.message
+        }
+      }))
+  }
 }

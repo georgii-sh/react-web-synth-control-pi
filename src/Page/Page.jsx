@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Fragment } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 
 import { bs4 } from '../shared'
 import styles from './Page.scss'
@@ -21,6 +21,7 @@ class Page extends React.Component<Props> {
       <div>
         <Header title="Zynaddsubfx" />
         <div className={[bs4.container, styles.app__container].join(' ')}>
+          <Route path="/" exact component={() => <Redirect to="/instruments" />} />
           <Fragment>
             <Route path="/instruments" exact component={props => <Banks {...props}/>} />
             <Route path="/instruments/:bank" exact component={props => <Instruments {...props}/>} />
