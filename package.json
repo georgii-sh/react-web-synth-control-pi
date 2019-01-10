@@ -134,6 +134,6 @@
     "nodemon": "^1.14.11",
     "prettier": "^1.10.2",
     "react-test-renderer": "^16.2.0",
-    "webpack-dev-server": "^2.11.0"
+    "webpack-dev-server": ">=3.1.11"
   }
 }
